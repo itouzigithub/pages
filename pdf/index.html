@@ -5,6 +5,9 @@
     <title>pdf</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.169/pdf.min.js"></script>
+    <script>
+      PDFJS.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.169/pdf.worker.min.js";
+    </script>
   </head>
   <style type="text/css">
     * {
@@ -54,7 +57,6 @@
             pdf.getPage(i).then(function(page) {
 
               var scale = w / page.getViewport(1).width;
-              console.log(scale)
               var viewport = page.getViewport(scale);
 
               var div = document.createElement("div");
