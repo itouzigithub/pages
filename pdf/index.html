@@ -22,20 +22,29 @@
       padding-top: 1px;
       overflow-y: auto;
     }
+    #loading {
+      color: #fff;
+      position: relative;
+      left: 10px;
+      top: 10px;
+    }
   </style>
   <body>
 
-    <div id="app"></div>
+    <div id="app">
+      <span id="loading">处理中。。。</span>
+    </div>
 
     <script>
       function webViewerLoad () {
         // var url = 'https://img3-itzcdn-com.alikunlun.com/static_res/pdf/influenceReport.pdf?v=123132';
-        var url = '/pdf/static/a.pdf';
+        var url = '/pages/pdf/static/a.pdf';
         var gap = 6;
         var w = window.innerWidth - gap * 2;
         var style = "position: relative; margin:" + gap + "px auto; width: " + w + "px;";
 
         PDFJS.getDocument(url).then(function (pdf) {
+          document.getElementById('loading').setAttribute('style', 'display: none');
           var container = document.getElementById("app");
 
           for (var i = 1; i <= pdf.numPages; i++) {
