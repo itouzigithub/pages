@@ -40,8 +40,8 @@
 
     <script>
       function webViewerLoad () {
-        // var url = 'https://img3-itzcdn-com.alikunlun.com/static_res/pdf/influenceReport.pdf?v=123132';
-        var url = '/pages/pdf/static/a.pdf';
+        var url = 'https://img3-itzcdn-com.alikunlun.com/static_res/pdf/influenceReport.pdf?v=123132';
+        // var url = '/pages/pdf/static/a.pdf';
         var gap = 6;
         var w = window.innerWidth - gap * 2;
         var style = "position: relative; margin:" + gap + "px auto; width: " + w + "px;";
@@ -49,6 +49,7 @@
 
         PDFJS.getDocument(url).then(function (pdf) {
           console.log('pdf resolved, used ' + ((Date.now() - start) / 1000).toFixed(2) + 's. total page: ' + pdf.numPages);
+          
           var loading = document.getElementById('loading');
           loading.parentNode.removeChild(loading);
           var container = document.getElementById("app");
@@ -88,8 +89,6 @@
 
               // Render PDF page
               page.render(renderContext);
-
-              console.log('page ' + i + ' rendered, t = ' + ((Date.now() - start) / 1000).toFixed(2) + 's')
             })
           }
         })
