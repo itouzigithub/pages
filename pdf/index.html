@@ -45,10 +45,10 @@
         var gap = 6;
         var w = window.innerWidth - gap * 2;
         var style = "position: relative; margin:" + gap + "px auto; width: " + w + "px;";
+        var start = Date.now();
 
         PDFJS.getDocument(url).then(function (pdf) {
           console.log('pdf resolved, used ' + ((Date.now() - start) / 1000).toFixed(2) + 's. total page: ' + pdf.numPages);
-          var start = Date.now();
           var loading = document.getElementById('loading');
           loading.parentNode.removeChild(loading);
           var container = document.getElementById("app");
@@ -88,13 +88,11 @@
 
               // Render PDF page
               page.render(renderContext);
-console.log(i === pdf.numPages)
-              if (i === pdf.numPages) {
-                console.log('pdf all rendered, used ' + ((Date.now() - start) / 1000).toFixed(2) + 's')
-              }
-            });
+
+              console.log('page ' + i + ' rendered, t = ' + ((Date.now() - start) / 1000).toFixed(2) + 's')
+            })
           }
-        });
+        })
       }
 
       if (document.readyState === 'interactive' || document.readyState === 'complete') {
