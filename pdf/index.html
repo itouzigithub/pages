@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>pdf</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.169/pdf.min.js"></script>
+  </head>
+  <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body,
+    html {
+      height: 100%;
+    }
+    #app {
+      height: 100%;
+      background-color: #1b1d1c;
+      padding-top: 1px;
+      overflow-y: auto;
+    }
+  </style>
+  <body>
+
+    <div id="app"></div>
+
+    <script>
+      function webViewerLoad () {
+        // var url = 'https://img3-itzcdn-com.alikunlun.com/static_res/pdf/influenceReport.pdf?v=123132';
+        var url = '/pdf/static/a.pdf';
+        var gap = 6;
+        var w = window.innerWidth - gap * 2;
+        var style = "position: relative; margin:" + gap + "px auto; width: " + w + "px;";
+
+        PDFJS.getDocument(url).then(function (pdf) {
+          var container = document.getElementById("app");
+
+          for (var i = 1; i <= pdf.numPages; i++) {
+            // Get desired page
+            pdf.getPage(i).then(function(page) {
+
+              var scale = w / page.getViewport(1).width;
+              console.log(scale)
+              var viewport = page.getViewport(scale);
+
+              var div = document.createElement("div");
+
+              // Set id attribute with page-#{pdf_page_number} format
+              div.setAttribute("id", "page-" + (page.pageIndex + 1));
+
+              // This will keep positions of child elements as per our needs
+              div.setAttribute("style", style);
+
+              // Append div within div#container
+              container.appendChild(div);
+
+              // Create a new Canvas element
+              var canvas = document.createElement("canvas");
+
+              // Append Canvas within div#page-#{pdf_page_number}
+              div.appendChild(canvas);
+
+              var context = canvas.getContext('2d');
+              canvas.height = viewport.height;
+              canvas.width = viewport.width;
+
+              var renderContext = {
+                canvasContext: context,
+                viewport: viewport
+              };
+
+              // Render PDF page
+              page.render(renderContext);
+            });
+          }
+        });
+      }
+
+      if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        webViewerLoad();
+      } else {
+        document.addEventListener('DOMContentLoaded', webViewerLoad, true);
+      }
+    </script>
+  </body>
+</html>
