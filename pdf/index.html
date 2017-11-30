@@ -47,7 +47,7 @@
         var style = "position: relative; margin:" + gap + "px auto; width: " + w + "px;";
 
         PDFJS.getDocument(url).then(function (pdf) {
-          console.log('pdf loaded，total page: ' + pdf.numPages);
+          console.log('pdf resolved, used ' + ((Date.now() - start) / 1000).toFixed(2) + 's. total page: ' + pdf.numPages);
           var start = Date.now();
           var loading = document.getElementById('loading');
           loading.parentNode.removeChild(loading);
@@ -88,10 +88,9 @@
 
               // Render PDF page
               page.render(renderContext);
-
+console.log(i === pdf.numPages)
               if (i === pdf.numPages) {
-                var end = Date.now();
-                console.log('use: ' + ((start - end) / 1000).toFixed(2) + 's')
+                console.log('pdf all rendered, used ' + ((Date.now() - start) / 1000).toFixed(2) + 's')
               }
             });
           }
