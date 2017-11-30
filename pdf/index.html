@@ -44,7 +44,9 @@
         var style = "position: relative; margin:" + gap + "px auto; width: " + w + "px;";
 
         PDFJS.getDocument(url).then(function (pdf) {
-          document.getElementById('loading').setAttribute('style', 'display: none');
+          console.log('pdf loaded，total page: ' + pdf.numPages);
+          var loading = document.getElementById('loading');
+          loading.parentNode.removeChild(loading);
           var container = document.getElementById("app");
 
           for (var i = 1; i <= pdf.numPages; i++) {
