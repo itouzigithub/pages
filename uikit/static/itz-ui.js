@@ -129,7 +129,7 @@
     (function () {
       var $popbox = $(el).parents('.popbox');
       $(el).click(function () {
-        $popbox.fadeOut();
+        $popbox.fadeOut('fast');
       })
     })()
   })
