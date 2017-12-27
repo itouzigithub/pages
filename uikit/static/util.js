@@ -1,3 +1,9 @@
+// 本文件只包含通用的方法
+// 例如与数字、字符串、数组、对象、时间等 native 数据类型处理相关的方法
+// 不涉及具体业务
+// 不涉及 BOM 或 DOM 的 API
+// 特定场景的方法单独封装在 utils 文件夹下，单独引用
+
 window.itz = window.itz || {};
 itz.$ = itz.$ || {};
 
@@ -7,7 +13,8 @@ itz.$ = itz.$ || {};
  *
  * @text { String } 
  * @postion { Number } 每隔多少位增加空格，默认为 4
- * @prefix { Boolean } 前置（默认） '10241023102210' => '10 2410 2310 2210' | 后置：'10241023102210' => '1024 1023 1022 10'  
+ * @prefix { Boolean } 前置：'10241023102210' => '10 2410 2310 2210' （默认）
+ *                     后置：'10241023102210' => '1024 1023 1022 10'  
  */
 itz.$.addSpace = function (text, position, prefix) {
   var position = position || 4;
